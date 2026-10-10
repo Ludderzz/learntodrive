@@ -1,0 +1,26 @@
+:root{--fg:#14202b;--ac:#e63946;--cd:rgba(255,255,255,.9);--ok:#2a9d5c}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--cd:rgba(18,26,36,.9);--fg:#eef3f7}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif;color:var(--fg);background:#bfe4f7}
+canvas{position:fixed;inset:0;width:100%;height:100%;z-index:-1;touch-action:pan-y}
+nav{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;gap:8px;padding:calc(10px + env(safe-area-inset-top,0px)) 14px 10px;z-index:5;font-weight:700;font-size:14px;pointer-events:none}
+nav>*{pointer-events:auto;color:var(--fg);text-decoration:none;background:var(--cd);padding:7px 13px;border-radius:99px;backdrop-filter:blur(8px)}
+section{min-height:100vh;min-height:100dvh;display:flex;align-items:center;padding:70px 5vw}
+section.r{justify-content:flex-end}
+.card{background:var(--cd);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:20px;padding:24px;max-width:470px;width:100%;box-shadow:0 10px 40px rgba(0,0,0,.2);will-change:transform}
+h1{font-size:clamp(2rem,7vw,3.6rem);line-height:1.05;margin:0 0 12px}h2{margin:0 0 8px;font-size:1.6rem}
+.tag{display:inline-block;background:var(--ac);color:#fff;font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;margin-bottom:8px;letter-spacing:.05em}
+ul{padding-left:18px;margin:8px 0}p{margin:8px 0}
+button{font:inherit;cursor:pointer;border:2px solid var(--ac);background:transparent;color:var(--fg);border-radius:12px;padding:9px 14px;min-height:44px;margin:3px 3px 3px 0}
+button:hover,button.on{background:var(--ac);color:#fff}
+.opt{display:block;width:100%;text-align:left}.opt.good{background:var(--ok);border-color:var(--ok);color:#fff}.opt.bad{opacity:.55;text-decoration:line-through}
+.bi{font-weight:600;margin-top:8px}.small{font-size:13px;opacity:.75}
+@media(max-width:700px){
+ section{align-items:flex-end;justify-content:center!important;padding:70px 10px calc(12px + env(safe-area-inset-bottom,0px))}
+ .card{padding:16px;max-height:46vh;max-height:46dvh;overflow-y:auto;border-radius:18px;font-size:15px}
+ h2{font-size:1.3rem}ul{margin:4px 0}
+ #quiz .card{max-height:56dvh}button{padding:8px 12px}}
+
+:focus-visible{outline:3px solid #ffb703;outline-offset:2px}
+nav a:hover{background:var(--ac);color:#fff}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
