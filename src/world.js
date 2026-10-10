@@ -46,13 +46,13 @@ const S={};function mk(i){const g=new THREE.Group();g.position.x=({7:1000,8:1500
 
 /* 0 hero: city street */
 {const g=mk(0);street(g,-120,70);const p=car(0xe63946),a=car(0x457b9d),b=car(0xf4a261),bus=car(0xd62828);bus.scale.set(1.2,1.6,1.9);g.add(p,a,b,bus);
- S.hero={ox:0,street:1,cam:()=>[[-3,3.4,44],[-1.8,1.3,0]],u(t,dt){const T=t%16;drive(p,s=>[-1.8,70-10*s],T,dt);drive(a,s=>[1.8,-90+12*s],T,dt);drive(b,s=>[1.8,-130+12*s],T,dt);drive(bus,s=>[1.8,-170+12*s],T,dt)}}}
+ S.hero={ox:0,mk:0.2,street:1,cam:()=>[[-3,3.4,44],[-1.8,1.3,0]],u(t,dt){const T=t%16;drive(p,s=>[-1.8,70-10*s],T,dt);drive(a,s=>[1.8,-90+12*s],T,dt);drive(b,s=>[1.8,-130+12*s],T,dt);drive(bus,s=>[1.8,-170+12*s],T,dt)}}}
 
 /* 1 crossing */
 {const g=mk(1);street(g,-120,70);for(let x=-3.5;x<=3.5;x++)bx(g,.55,.02,3,0xffffff,x,.06,0);
  [-4.8,4.8].forEach(x=>{bx(g,.15,3,.15,0x222222,x,1.5,2);const b=new THREE.Mesh(new THREE.SphereGeometry(.35,10,8),new THREE.MeshLambertMaterial({color:0xffa500,emissive:0xff8800}));b.position.set(x,3.2,2);g.add(b)});
  const p=car(0xe63946),pe=person(0x2a6fdb);g.add(p,pe);
- S.crossing={ox:100,street:1,cam:()=>[[5,6,24],[0,1,5]],u(t,dt){t%=20;drive(p,s=>[-1.8,kf(s,[[0,60],[2.4,38],[9.1,7,'o'],[10.5,7],[14.5,-13,'i'],[19.2,-60]])],t,dt);
+ S.crossing={ox:100,mk:0.2,street:1,cam:()=>[[5,6,24],[0,1,5]],u(t,dt){t%=20;drive(p,s=>[-1.8,kf(s,[[0,60],[2.4,38],[9.1,7,'o'],[10.5,7],[14.5,-13,'i'],[19.2,-60]])],t,dt);
   const x=kf(t,[[0,-7],[2.4,-7],[12.4,7]]);pe.position.set(x,0,0);pe.rotation.y=-Math.PI/2;walk(pe,t,9)}}}
 
 /* 2 roundabout */
@@ -69,7 +69,7 @@ const S={};function mk(i){const g=new THREE.Group();g.position.x=({7:1000,8:1500
  const sd=u=>{if(u<=0)return 0;if(u<3.75)return .8*u*u;if(u<4.75)return 11.25+6*(u-3.75);if(u<6.625){const w=u-4.75;return 17.25+6*w+.8*w*w}return 31.3+9*(u-6.625)};
  const rp=t=>{if(t<8.5)return[-2,kf(t,[[0,60],[2.5,37.5],[7,17.5,'o']])];const q=B.getPointAt(Math.min(1,sd(t-8.5)/LB));return[q.x,q.z]};
  const cq=o=>t=>{const q=(20*t+o)*Math.PI/180;return[10.5*Math.sin(q),-10.5*Math.cos(q)]},ca=cq(80),cb=cq(180);
- S.roundabout={ox:200,cam:()=>[[26,32,34],[-2,0,4]],u(t,dt){t%=18;drive(p,rp,t,dt);drive(a,ca,t,dt);drive(b,cb,t,dt)}}}
+ S.roundabout={ox:200,mk:0.25,cam:()=>[[26,32,34],[-2,0,4]],u(t,dt){t%=18;drive(p,rp,t,dt);drive(a,ca,t,dt);drive(b,cb,t,dt)}}}
 
 /* 3 junction */
 {const g=mk(3);strip(g,8,200,0,0,Math.PI/2,1);strip(g,6,60,0,34,0);bx(g,3,.02,.3,0xffffff,-1.5,.06,5);
@@ -77,19 +77,19 @@ const S={};function mk(i){const g=new THREE.Group();g.position.x=({7:1000,8:1500
  kerbBlocks(g,[[-25,-16,30,14,16],[25,-16,30,18,16],[-14,26,16,3,26],[14,26,16,3,26],[-40,26,16,5,26],[40,26,16,4,26]]);
  const p=car(0xe63946),o=car(0x457b9d);g.add(p,o);
  const pp=t=>[kf(t,[[0,-1.5],[7.5,-1.5],[9,-6],[13,-45,'i']]),kf(t,[[0,60],[1.5,40],[7,7,'o'],[7.5,7],[9,2.2]])+0];
- S.junction={ox:300,cam:()=>[[16,16,28],[-6,0,4]],u(t,dt){t%=13;drive(p,pp,t,dt);drive(o,s=>[kf(s,[[0,50],[8,-55]]),2],t,dt)}}}
+ S.junction={ox:300,mk:0.25,cam:()=>[[16,16,28],[-6,0,4]],u(t,dt){t%=13;drive(p,pp,t,dt);drive(o,s=>[kf(s,[[0,50],[8,-55]]),2],t,dt)}}}
 
 /* 4 traffic lights */
 {const g=mk(4);street(g,-120,70);strip(g,8,140,0,-9,Math.PI/2);bx(g,4,.02,.3,0xffffff,-2,.06,-3.5);
  bx(g,.14,4,.14,0x333333,-5,2,-3);const hd=bx(g,.5,1.4,.4,0x222222,-5,4.3,-3);const L=[0xff2020,0xffb000,0x20e060].map((c,i)=>{const m=new THREE.MeshLambertMaterial({color:c,emissive:0});const s=new THREE.Mesh(new THREE.SphereGeometry(.17,8,6),m);s.position.set(-5,4.75-i*.45,-2.78);g.add(s);return m});
  const p=car(0xe63946),x=car(0x2a9d8f);g.add(p,x);
- S.lights={ox:400,street:1,cam:()=>[[5,6,22],[-1.5,1.5,-4]],u(t,dt){t%=22;drive(p,s=>[-1.8,kf(s,[[0,60],[2,40],[10,0,'o'],[14,0],[18,-20,'i'],[22,-60]])],t,dt);drive(x,s=>[kf(s,[[0,70],[9,48],[19,-55]]),-6.5],t,dt);
+ S.lights={ox:400,mk:0.25,street:1,cam:()=>[[5,6,22],[-1.5,1.5,-4]],u(t,dt){t%=22;drive(p,s=>[-1.8,kf(s,[[0,60],[2,40],[10,0,'o'],[14,0],[18,-20,'i'],[22,-60]])],t,dt);drive(x,s=>[kf(s,[[0,70],[9,48],[19,-55]]),-6.5],t,dt);
   const st=t<3?2:t<5?1:t<14?0:2;L.forEach((m,i)=>m.emissive.setHex(i===st?[0xff0000,0xffa000,0x00ff50][i]:0))}}}
 
 /* 5 cyclist */
 {const g=mk(5);street(g,-120,70);const p=car(0xe63946),o=car(0x457b9d),cy=new THREE.Group(),r=person(0xf4a261);r.position.y=.35;r.scale.setScalar(.9);cy.add(r);
  const wg=new THREE.TorusGeometry(.36,.04,6,16).rotateY(Math.PI/2),ws=[0,-.9,.9].slice(1).map(z=>{const w=new THREE.Mesh(wg,M(0x111111));w.position.set(0,.4,z);cy.add(w);return w});bx(cy,.05,.05,1.3,0xe63946,0,.65,0);g.add(p,o,cy);
- S.cyclist={ox:500,street:1,cam:()=>[[5,5,30],[-1,1,10]],u(t,dt){t%=16;const zc=40-5*t;cy.position.set(-3.2,0,zc);cy.rotation.y=Math.PI;ws.forEach(w=>w.rotation.x-=5*dt/.36);walk(r,t,6);
+ S.cyclist={ox:500,mk:0.25,street:1,cam:()=>[[5,5,30],[-1,1,10]],u(t,dt){t%=16;const zc=40-5*t;cy.position.set(-3.2,0,zc);cy.rotation.y=Math.PI;ws.forEach(w=>w.rotation.x-=5*dt/.36);walk(r,t,6);
   drive(p,s=>{const z=40-5*s;return[kf(s,[[0,-1.8],[8.6,-1.8],[10.2,-.4,'s'],[12.5,-.4],[14.5,-1.8,'s']]),z+kf(s,[[0,20],[5,9,'s'],[9,9],[13,-10,'s'],[16,-40,'i']])]},t,dt);
   drive(o,s=>[1.8,-80+13*(s)],t,dt)}}}
 
@@ -106,7 +106,7 @@ const TB={20:[6,6],30:[9,14],40:[12,24],50:[15,38],60:[18,55],70:[21,75]};let mp
   pa.position.z=zs+br+th;pr.position.z=zs+br;const n=Math.floor((th+br)/4);for(let i=0;i<30;i++){od.position.set(-.4,.1,zs+(i<=n?i*4:-999));od.updateMatrix();tk.setMatrixAt(i,od.matrix)}tk.instanceMatrix.needsUpdate=true};
  const set=()=>{[th,br]=TB[mph];v=mph*.44704;t1=20/v;t2=th/v;t3=2*br/v;z0=zs+br+th+20;am.scale.z=th;am.position.set(-1.8,.09,zs+br+th/2);rd.scale.z=br;rd.position.set(-1.8,.09,zs+br/2);
   upd();hooks.onBraking&&hooks.onBraking({mph,th,br})};
- S.braking={ox:600,set,cam:()=>{const T=th+br;return[[16+T*.5,10+T*.35,zs+T*.5+8],[-1.8,0,zs+T*.5+3]]},u(t,dt){t=(t*.55)%(t1+t2+t3+3);let s;
+ S.braking={ox:600,mk:.4,set,cam:()=>{const T=th+br;return C.aspect<1?[[7,8+T*.5,zs+T*.5+34+T*.55],[-1.8,0,zs+T*.5]]:[[16+T*.5,10+T*.35,zs+T*.5+8],[-1.8,0,zs+T*.5+3]]},u(t,dt){t=(t*.55)%(t1+t2+t3+3);let s;
   if(t<t1)s=v*t;else if(t<t1+t2)s=20+v*(t-t1);else if(t<t1+t2+t3){const w=t-t1-t2;s=20+th+v*w-.5*(v*v/(2*br))*w*w}else s=20+th+br;
   const z=z0-s,pv=u0.pv||0;u0.pv=s;drive(p,q=>[-1.8,z-(q-t)*0],t,.016);p.position.z=z;p.userData.tl.emissive.setHex(t>=t1+t2&&s<20+th+br-.1?0xff0000:0);
   ch.visible=ball.visible=t>=t1;const cx=kf(t,[[t1,-5.5],[t1+.9,-2.4,'o']]);ch.position.set(cx,0,0);ch.rotation.y=Math.PI/2;walk(ch,t,10);ball.position.set(cx+.9,.3,0)}}}
@@ -143,17 +143,17 @@ function mway(g,z0,z1,slip){const l=z1-z0,cz=(z0+z1)/2,pl=(w,x)=>{const m=new TH
 /* 7 motorway: joining from a slip road */
 {const g=mk(7);mway(g,-320,260,true);const p=car(0xe63946),b=car(0x457b9d),k=truck(0xc0392b),o=car(0xf4a261),oc=car(0x2a9d8f),ot=truck(0x2a6fdb);g.add(p,b,k,o,oc,ot);let zp=150,xp=-36;
  const pz=tabz([[0,14],[9,26],[18,26]],150),pf=t=>{const z=pz(t);return[slipX(z),z]};
- S.merge={ox:1000,T:18,k:8,cam:()=>[[xp-14,8,zp+28],[xp+7,1,zp-18]],u(t,dt){t%=18;drive(p,pf,t,dt);const q=pf(t);zp=q[1];xp=q[0];drive(b,s=>[-9.17,100-24*s],t,dt);drive(k,s=>[-9.17,250-24*s],t,dt);drive(o,s=>[-1.83,330-34*s],t,dt);drive(oc,s=>[8.5,-300+30*s],t,dt);drive(ot,s=>[12.17,-420+26*s],t,dt)}}}
+ S.merge={ox:1000,mk:0.35,T:18,k:8,cam:()=>[[xp-14,8,zp+28],[xp+7,1,zp-18]],u(t,dt){t%=18;drive(p,pf,t,dt);const q=pf(t);zp=q[1];xp=q[0];drive(b,s=>[-9.17,100-24*s],t,dt);drive(k,s=>[-9.17,250-24*s],t,dt);drive(o,s=>[-1.83,330-34*s],t,dt);drive(oc,s=>[8.5,-300+30*s],t,dt);drive(ot,s=>[12.17,-420+26*s],t,dt)}}}
 /* 8 motorway: overtaking a lorry */
 {const g=mk(8);mway(g,-660,200);const lo=truck(0x2a6fdb),p=car(0xe63946),f=car(0x2a9d8f),oc=car(0xf4a261),ot=truck(0xc0392b);g.add(lo,p,f,oc,ot);let zp=130;
  const gap=t=>kf(t,[[0,95],[3,55,'s'],[7,55],[22,-30,'s'],[27,-60,'s']]),lx=t=>kf(t,[[0,-9.17],[7.6,-9.17],[9.5,-5.5,'s'],[20,-5.5],[22.5,-9.17,'s']]);
- S.overtake={ox:1500,T:27,k:8,cam:()=>[[-26,9,zp+26],[-6,1,zp-14]],u(t,dt){t%=27;zp=50-22*t+gap(t);drive(lo,q=>[-9.17,50-22*q],t,dt);drive(p,q=>[lx(q),50-22*q+gap(q)],t,dt);drive(f,q=>[-1.83,-5-35*(q-5)],t,dt);drive(oc,q=>[8.5,-300+30*q],t,dt);drive(ot,q=>[12.17,-520+26*q],t,dt)}}}
+ S.overtake={ox:1500,mk:0.35,T:27,k:8,cam:()=>[[-26,9,zp+26],[-6,1,zp-14]],u(t,dt){t%=27;zp=50-22*t+gap(t);drive(lo,q=>[-9.17,50-22*q],t,dt);drive(p,q=>[lx(q),50-22*q+gap(q)],t,dt);drive(f,q=>[-1.83,-5-35*(q-5)],t,dt);drive(oc,q=>[8.5,-300+30*q],t,dt);drive(ot,q=>[12.17,-520+26*q],t,dt)}}}
 /* 9 motorway: two-second gap */
 {const g=mk(9);mway(g,-560,140);const vk=[[0,31],[5,31],[8,16],[11,16],[14,31]],wk=[[0,31],[5.7,31],[8.2,16],[11.5,16],[14.5,31]];
  const tab=(a,z0)=>{const n=1000,r=new Float32Array(n);let z=z0;for(let i=0;i<n;i++){r[i]=z;z-=kf(i*.02,a)*.02}return t=>{const x=Math.min(n-2,Math.max(0,t/.02)),i=Math.floor(x);return r[i]+(r[i+1]-r[i])*(x-i)}};
  const zl=tab(vk,0),zf=tab(wk,70),l=car(0x457b9d),p=car(0xe63946),oc=car(0xf4a261);g.add(l,p,oc);
  const bm=new THREE.MeshBasicMaterial({color:0x2a9d5c,transparent:true,opacity:.5}),bar=new THREE.Mesh(new THREE.PlaneGeometry(2.6,1).rotateX(-Math.PI/2),bm);g.add(bar);let zm=30,lg=-1;
- S.gap={ox:2000,T:18,k:8,cam:()=>[[-55,14,zm+14],[-5.5,0,zm]],u(t,dt){t%=18;drive(l,q=>[-5.5,zl(q)],t,dt);drive(p,q=>[-5.5,zf(q)],t,dt);drive(oc,q=>[8.5,-300+30*q],t,dt);
+ S.gap={ox:2000,mk:.4,T:18,k:8,cam:()=>C.aspect<1?[[-14,26,zm+58],[-5.5,0,zm-4]]:[[-55,14,zm+14],[-5.5,0,zm]],u(t,dt){t%=18;drive(l,q=>[-5.5,zl(q)],t,dt);drive(p,q=>[-5.5,zf(q)],t,dt);drive(oc,q=>[8.5,-300+30*q],t,dt);
   const a=zl(t),b=zf(t),len=Math.max(.1,b-a-4.2),sec=len/kf(t,wk);zm=(a+b)/2;bar.scale.z=len;bar.position.set(-5.5,.08,zm);bm.color.setHex(sec>=2?0x2a9d5c:sec>=1?0xffb703:0xe63946);
   const r=Math.round(sec*10);if(r!==lg){lg=r;hooks.onGap&&hooks.onGap(sec)}}}}
 
@@ -165,10 +165,10 @@ const cl=new THREE.Group();for(let i=0;i<(mob()?12:22);i++){const c=new THREE.Gr
 const clock=new THREE.Clock(),now=()=>hooks.now?hooks.now():clock.getElapsedTime();
 let T0=0,cur='hero',mx=0,my=0,last=0,raf=0,dead=false;const cp=new V(0,5,40),cL=new V(0,1,0);
 const rmo=typeof matchMedia!=='undefined'&&matchMedia('(prefers-reduced-motion: reduce)').matches;const onMove=e=>{if(rmo)return;mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5};
-function rs(){const w=innerWidth,h=innerHeight;R.setSize(w,h,false);C.aspect=w/h;C.fov=mob()?62:55;if(mob())C.setViewOffset(w,h,0,h*.17,w,h);else C.clearViewOffset();C.updateProjectionMatrix()}
+function rs(){const w=innerWidth,h=innerHeight;R.setSize(w,h,false);C.aspect=w/h;C.fov=mob()?54:55;if(mob())C.setViewOffset(w,h,0,h*.17,w,h);else C.clearViewOffset();C.updateProjectionMatrix()}
 let d0=0,lph=0;
 function frame(){if(dead)return;raf=requestAnimationFrame(frame);const t=now(),dt=Math.max(.001,Math.min(.05,t-last));last=t;
- const s=S[cur],lt=t-T0;s.u(lt,dt);const c=s.cam(),f=Math.max(1,1.7/C.aspect),fx=s.street?Math.min(f,1.25):f;
+ const s=S[cur],lt=t-T0;s.u(lt,dt);const c=s.cam(),f=1+(Math.max(1,1.7/C.aspect)-1)*(s.mk||.3),fx=s.street?Math.min(f,1.25):f;
  const L=new V(c[1][0]+s.ox,c[1][1],c[1][2]),P=new V(c[0][0]+s.ox,c[0][1],c[0][2]);P.x=L.x+(P.x-L.x)*fx;P.y=L.y+(P.y-L.y)*Math.min(f,2);P.z=L.z+(P.z-L.z)*f;P.x+=mx*3;P.y-=my*1.8;
  const dist=cp.distanceTo(P);if(d0<0)d0=Math.max(1,dist);
  const ph=s.T?lt%s.T:0;if(s.T&&ph<lph){cp.copy(P);cL.copy(L)}lph=ph;
