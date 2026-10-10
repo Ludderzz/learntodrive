@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import { createWorld } from './world.js'
 import { Q } from './quiz.js'
 
@@ -118,6 +119,7 @@ export default function App() {
       <section style={{ minHeight: '30vh', alignItems: 'flex-end' }}>
         <div className="card"><p className="small" style={{ margin: 0 }}>A learning aid, not a replacement for lessons with a qualified instructor or the official Highway Code.</p></div>
       </section>
+      <Analytics />
     </>
   )
 }
